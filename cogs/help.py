@@ -17,7 +17,7 @@ class Help(commands.Cog):
     # choices: app_commands.Choice[str]
     async def help(self, ctx):
         """
-        Get help on things related to the Paradigm Ecosystem.
+        Get help on things related to the icCoral Ecosystem.
         """
         # if (choices.value == 'rock'):
         #     counter = 'paper'

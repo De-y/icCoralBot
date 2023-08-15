@@ -7,7 +7,12 @@ The place where it all begins.
 import os, discord, json
 from dotenv import load_dotenv
 from discord.ext import commands
-import aiohttp, json
+import aiohttp, json, prisma
+
+
+db = prisma.Prisma()
+db.connect()
+prisma.register(db)
 
 async def verify(username, authorization):
     async with aiohttp.ClientSession() as session:
@@ -65,10 +70,10 @@ class Client(commands.Bot):
                 username = '@' + ctx.name
                 result = await verify(username, authorization)
                 if result == 'True':
-                    await ctx.add_roles(ctx.guild.get_role(884815471302217472))
-                    await ctx.send('You have already been verified as a student of the school because you have verified yourself in the past. You may now join the server!')
+                    await ctx.add_roles(ctx.guild.get_role(1088598080133271592))
+                    await ctx.send('You have already been verified as a student of the school because you have verified yourself in the past in a school-affiliated server. You may now join the server!')
                 else:
-                    await ctx.send(f'Welcome to a Coral Academy-related discord server, {ctx.mention}! Please visit <https://capi.avnce.tech/> to verify yourself as a student of the school. Once you have done that, you may run the command /verify in the server to verify yourself.')
+                    await ctx.send(f'Welcome to a Coral Academy-related discord, {ctx.mention}! Please visit <https://capi.avnce.tech/> to verify yourself as a student of the school. Once you have done that, you may run the command /verify in the server to verify yourself.')
 
 client = Client()
 client.run(get_env("TOKEN"))

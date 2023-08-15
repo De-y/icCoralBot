@@ -12,7 +12,7 @@ class Credits(commands.Cog):
         """
         Show Credits.
         """
-        embed = discord.Embed(title="**:coin: Credits**", description="©2023 Defy. All rights reserved.\n\nDiscord.py for the bot framework.", color=0xF54245)
+        embed = discord.Embed(title="**:coin: Credits**", description="©2023 De-y. All rights reserved.\n\nDiscord.py for the bot framework.", color=0xF54245)
 
         message = await ctx.send(embed=embed, ephemeral=True)
 
