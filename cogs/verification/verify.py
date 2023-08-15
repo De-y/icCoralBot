@@ -28,10 +28,10 @@ class Verify(commands.Cog):
         Verify you are a student of the school.
         """
         username = '@' + ctx.author.name
-        authorization = 'PRIVATE_KEY_HERE!!!'
+        authorization = 'AUTHORIZATION_HERE'
         result = await verify(username, authorization)
         if result == 'True':
-            role_id = Servers.prisma().find_first(where = {'guild_id': ctx.guild.id})
+            role_id = Servers.prisma().find_first(where = {'guild_id': str(ctx.guild.id)})
             await ctx.reply('You have been verified as a student of the school(or may have already been verified, in which case will make the command not work). However, you may now join the server.', ephemeral=True)
             await ctx.author.add_roles(ctx.guild.get_role(int(role_id.role_id)))
         else:

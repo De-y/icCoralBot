@@ -8,6 +8,7 @@ import os, discord, json
 from dotenv import load_dotenv
 from discord.ext import commands
 import aiohttp, json, prisma
+from prisma.models import Servers
 
 
 db = prisma.Prisma()
@@ -56,7 +57,7 @@ class Client(commands.Bot):
 
         @client.event
         async def on_ready():
-            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="this Discord server."))
+            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Coral Academy Discord Servers."))
             print(f"Bot is in about {len(client.guilds)} servers.")
 
         @client.event
@@ -70,7 +71,8 @@ class Client(commands.Bot):
                 username = '@' + ctx.name
                 result = await verify(username, authorization)
                 if result == 'True':
-                    await ctx.add_roles(ctx.guild.get_role(1088598080133271592))
+                    role_id = Servers.prisma().find_first(where = {'guild_id': str(ctx.guild.id)})
+                    await ctx.add_roles(ctx.guild.get_role(int(role_id.role_id)))
                     await ctx.send('You have already been verified as a student of the school because you have verified yourself in the past in a school-affiliated server. You may now join the server!')
                 else:
                     await ctx.send(f'Welcome to a Coral Academy-related discord, {ctx.mention}! Please visit <https://capi.avnce.tech/> to verify yourself as a student of the school. Once you have done that, you may run the command /verify in the server to verify yourself.')

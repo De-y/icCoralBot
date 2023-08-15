@@ -17,9 +17,9 @@ class Setup(commands.Cog):
         """
         Setup verification for school-based discord servers(ADMIN ONLY)
         """
-        
-        Servers.prisma().create(data={'guild_id': ctx.guild.id, 'role_id': role.id})
+        Servers.prisma().create(data={'guild_id': str(ctx.guild.id), 'role_id': str(role.id)})
         await ctx.send(f"Setup complete! Verification role is now <@&{role.id}>")
+
     @setup.error
     async def setup_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
